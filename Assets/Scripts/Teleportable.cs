@@ -8,15 +8,18 @@ public class Teleportable : MonoBehaviour
     public Transform Surrogate;
 
     Transform trans;
+    Rigidbody rigid;
 
     bool useSurrogate;
     Transform activeClone;
     Vector3 clonePositionShift;
     string sideEntered;
+    
 
     void Start()
     {
         trans = GetComponent<Transform>();
+        rigid = GetComponent<Rigidbody>();
         useSurrogate = Surrogate != null;
     }
     void Update()
@@ -39,51 +42,87 @@ public class Teleportable : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        sideEntered = other.name;
+        if (other.name != sideEntered)
+        {
+            EnterSide(other.name);
+            activeClone = MakeClone();
+        }
+    }
+    void OnTriggerStay(Collider other)
+    {
+        Vector3 clonePosition = trans.position + clonePositionShift * 40;
+
+        Vector3 maskedPosition = trans.position;
+        maskedPosition.x *= clonePositionShift.x;
+        maskedPosition.y *= clonePositionShift.y;
+        maskedPosition.z *= clonePositionShift.z;
+        if (maskedPosition.sqrMagnitude>=400)
+        {
+            trans.position = clonePosition;
+            string otherSide = sideEntered.Substring(0, 1);
+            if (sideEntered.Contains("+"))
+            {
+                otherSide += "-";
+            }
+            else
+            {
+                otherSide += "+";
+            }
+            EnterSide(otherSide);
+            clonePosition = trans.position + clonePositionShift * 40;
+        }
+        
+        activeClone.position = clonePosition;
+    }
+    void OnTriggerExit(Collider other)
+    {
+        if (other.name==sideEntered)
+        {
+            Destroy(activeClone.gameObject);
+            sideEntered = "";
+        }
+    }
+    void EnterSide(string side)
+    {
+        sideEntered = side;
         switch (sideEntered)
         {
             case "Z+":
             case "Z-":
                 {
-                    trans.position = new Vector3(trans.position.x, trans.position.y, trans.position.z * -1);
-                    Vector3 toCenter = (Vector3.zero - trans.position).normalized * 0.1f;
-                    trans.position = trans.position + toCenter;
+                    clonePositionShift = new Vector3(0, 0, -1);
                 }
                 break;
             case "Y+":
             case "Y-":
                 {
-                    trans.position = new Vector3(trans.position.x, trans.position.y * -1, trans.position.z);
-                    Vector3 toCenter = (Vector3.zero - trans.position).normalized * 0.1f;
-                    trans.position = trans.position + toCenter;
+                    clonePositionShift = new Vector3(0, -1, 0);
                 }
                 break;
             case "X+":
             case "X-":
                 {
-                    trans.position = new Vector3(trans.position.x * -1, trans.position.y, trans.position.z);
-                    Vector3 toCenter = (Vector3.zero - trans.position).normalized * 0.1f;
-                    trans.position = trans.position + toCenter;
+                    clonePositionShift = new Vector3(-1, 0, 0);
                 }
                 break;
             default:
                 break;
         }
-    }
-    void OnTriggerExit(Collider other)
-    {
-        
+        if (side.Contains("-"))
+        {
+            clonePositionShift *= -1;
+        }
     }
     Transform MakeClone()
     {
         Transform clone = Instantiate<Transform>(trans);
         foreach (MonoBehaviour script in clone.GetComponents<MonoBehaviour>())
         {
-            script.enabled = false;
+            Destroy(script);
         }
         foreach (MonoBehaviour script in clone.GetComponentsInChildren<MonoBehaviour>())
         {
-            script.enabled = false;
+            Destroy(script);
         }
         return clone;
     }
