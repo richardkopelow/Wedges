@@ -56,6 +56,15 @@ public class Teleportable : MonoBehaviour
         maskedPosition.x *= clonePositionShift.x;
         maskedPosition.y *= clonePositionShift.y;
         maskedPosition.z *= clonePositionShift.z;
+
+        Transform[] originals = trans.GetComponentsInChildren<Transform>();
+        Transform[] clones = trans.GetComponentsInChildren<Transform>();
+        for (int i = 0; i < originals.Length; i++)
+        {
+            clones[i].localPosition = originals[i].localPosition;
+            clones[i].localRotation = originals[i].localRotation;
+        }
+
         if (maskedPosition.sqrMagnitude>=400)
         {
             trans.position = clonePosition;
