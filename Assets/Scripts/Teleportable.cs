@@ -133,6 +133,14 @@ public class Teleportable : MonoBehaviour
         {
             Destroy(script);
         }
+        foreach (Rigidbody rig in clone.GetComponents<Rigidbody>())
+        {
+            Destroy(rig);
+        }
+        foreach (Rigidbody rig in clone.GetComponentsInChildren<Rigidbody>())
+        {
+            Destroy(rig);
+        }
         return clone;
     }
 }
