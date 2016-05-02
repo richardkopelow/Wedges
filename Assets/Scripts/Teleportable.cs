@@ -11,9 +11,6 @@ public class Teleportable : MonoBehaviour
     Rigidbody rigid;
 
     bool useSurrogate;
-    Transform activeClone;
-    Vector3 clonePositionShift;
-    string sideEntered;
     
 
     void Start()

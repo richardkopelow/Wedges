@@ -15,10 +15,9 @@ public class TimeDecay : MonoBehaviour
     void Update()
     {
         liveTime -= Time.deltaTime;
-        if (liveTime<0)
+        if (liveTime < 0)
         {
-            Destroy(gameObject);
-            Debug.Log("Die");
+            DestroyImmediate(gameObject);
         }
     }
 }

@@ -29,7 +29,7 @@ public class GameSpace : MonoBehaviour
                 return;
             }
             
-            for (int i = 0; i < originals.Length; i++)
+            for (int i = 1; i < originals.Length; i++)
             {
                 cloneChildren[i].localPosition = originals[i].localPosition;
                 cloneChildren[i].localRotation = originals[i].localRotation;
@@ -62,25 +62,25 @@ public class GameSpace : MonoBehaviour
     {
         Transform clone = Instantiate<Transform>(trans);
         clone.position = offset;
-        foreach (MonoBehaviour script in clone.GetComponents<MonoBehaviour>())
-        {
-            Destroy(script);
-        }
         foreach (MonoBehaviour script in clone.GetComponentsInChildren<MonoBehaviour>())
         {
             Destroy(script);
-        }
-        foreach (Rigidbody rig in clone.GetComponents<Rigidbody>())
-        {
-            Destroy(rig);
         }
         foreach (Rigidbody rig in clone.GetComponentsInChildren<Rigidbody>())
         {
             Destroy(rig);
         }
+        foreach (Collider coll in clone.GetComponentsInChildren<Collider>())
+        {
+            Destroy(coll);
+        }
         foreach (Camera cam in clone.GetComponentsInChildren<Camera>())
         {
-            cam.gameObject.SetActive(false);
+            GameObject go = cam.gameObject;
+            Destroy(go.GetComponent<AudioListener>());
+            Destroy(go.GetComponent<GUILayer>());
+            Destroy(go.GetComponent<FlareLayer>());
+            Destroy(cam);
         }
         clones.Add(clone);
     }
