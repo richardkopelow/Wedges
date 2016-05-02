@@ -29,7 +29,7 @@ public class AsteroidManager : MonoBehaviour
                 if (i != j)
                 {
                     Vector3 diff = parts[j].position - parts[i].position;
-                    parts[i].AddForce(Attraction * diff.normalized / Mathf.Abs(Mathf.Pow(diff.magnitude, 3)));
+                    parts[i].AddForce(Attraction * diff.normalized / Mathf.Abs(Mathf.Pow(diff.magnitude, 4)));
                 }
             }
         }
