@@ -32,7 +32,7 @@ public class Ship : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
-            GameObject go = Instantiate<GameObject>(Ammo);
+            GameObject go = Globals.Instantiate<GameObject>(Ammo);
             Transform ammoTrans = go.GetComponent<Transform>();
             Rigidbody ammoRig = go.GetComponent<Rigidbody>();
             ammoTrans.position = ShipBody.position + ShipBody.forward * 2;

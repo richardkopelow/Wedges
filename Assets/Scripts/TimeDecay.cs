@@ -18,6 +18,7 @@ public class TimeDecay : MonoBehaviour
         if (liveTime<0)
         {
             Destroy(gameObject);
+            Debug.Log("Die");
         }
     }
 }
