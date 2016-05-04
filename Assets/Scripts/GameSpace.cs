@@ -10,7 +10,8 @@ public class GameSpace : MonoBehaviour
     void Start()
     {
         trans = GetComponent<Transform>();
-        Globals.GameSpace = trans;
+        Globals.GameSpaceTrans = trans;
+        Globals.GSpace = this;
 
         clones = new List<Transform>();
         buildBoard();
@@ -19,16 +20,20 @@ public class GameSpace : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        UpdateClones();
+    }
+    public void UpdateClones()
+    {
         foreach (Transform clone in clones)
         {
             Transform[] originals = trans.GetComponentsInChildren<Transform>();
             Transform[] cloneChildren = clone.GetComponentsInChildren<Transform>();
-            if (cloneChildren.Length!=originals.Length)
+            if (cloneChildren.Length != originals.Length)
             {
                 buildBoard();
                 return;
             }
-            
+
             for (int i = 1; i < originals.Length; i++)
             {
                 cloneChildren[i].localPosition = originals[i].localPosition;
@@ -66,14 +71,18 @@ public class GameSpace : MonoBehaviour
         {
             Destroy(script);
         }
+        
         foreach (Rigidbody rig in clone.GetComponentsInChildren<Rigidbody>())
         {
             Destroy(rig);
         }
+        
+        /*
         foreach (Collider coll in clone.GetComponentsInChildren<Collider>())
         {
             Destroy(coll);
         }
+        */
         foreach (Camera cam in clone.GetComponentsInChildren<Camera>())
         {
             GameObject go = cam.gameObject;

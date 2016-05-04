@@ -21,32 +21,43 @@ public class Teleportable : MonoBehaviour
     }
     void Update()
     {
+        bool ported = false;
         Vector3 position = trans.position;
         Transform tToUse = useSurrogate ? Surrogate : trans;
         if (tToUse.position.x>Globals.GameRadius)
         {
             position.x -= 2f*Globals.GameRadius;
+            ported = true;
         }
         if (tToUse.position.x < -1*Globals.GameRadius)
         {
             position.x += 2f * Globals.GameRadius;
+            ported = true;
         }
         if (tToUse.position.y > Globals.GameRadius)
         {
             position.y -= 2f * Globals.GameRadius;
+            ported = true;
         }
         if (tToUse.position.y < -1 * Globals.GameRadius)
         {
             position.y += 2f * Globals.GameRadius;
+            ported = true;
         }
         if (tToUse.position.z > Globals.GameRadius)
         {
             position.z -= 2f * Globals.GameRadius;
+            ported = true;
         }
         if (tToUse.position.z < -1 * Globals.GameRadius)
         {
             position.z += 2f * Globals.GameRadius;
+            ported = true;
         }
         trans.position = position;
+        if (ported)
+        {
+            Globals.GSpace.UpdateClones();
+        }
     }
 }
