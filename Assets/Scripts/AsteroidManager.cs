@@ -24,12 +24,31 @@ public class AsteroidManager : MonoBehaviour
     {
         for (int i = 0; i < parts.Count; i++)
         {
+            Vector3 force = new Vector3();
             for (int j = 0; j < parts.Count; j++)
             {
                 if (i != j)
                 {
                     Vector3 diff = parts[j].position - parts[i].position;
-                    parts[i].AddForce(Attraction * diff.normalized / Mathf.Abs(Mathf.Pow(diff.magnitude, 4)));
+                    force+=(Attraction * diff.normalized / Mathf.Abs(Mathf.Pow(diff.magnitude, 4)));
+                }
+            }
+            parts[i].AddForce(force);
+            if (force.magnitude < 0.1)
+            {
+                if (parts[i].GetComponent<TimeDecay>() == null)
+                {
+                    TimeDecay td = parts[i].gameObject.AddComponent<TimeDecay>();
+                    td.LiveTime = 2;
+                    td.OnDeath += onAsteroidDeath;
+                }
+            }
+            else
+            {
+                TimeDecay td = parts[i].GetComponent<TimeDecay>();
+                if (td != null)
+                {
+                    Destroy(td);
                 }
             }
         }
@@ -55,5 +74,10 @@ public class AsteroidManager : MonoBehaviour
                 bodyi.position = info.point - cast.normalized * 0.6f;
             }
         }
+    }
+    void onAsteroidDeath(TimeDecay sender)
+    {
+        parts.Remove(sender.GetComponent<Rigidbody>());
+        Globals.Score++;
     }
 }

@@ -77,12 +77,12 @@ public class GameSpace : MonoBehaviour
             Destroy(rig);
         }
         
-        /*
+        ///*
         foreach (Collider coll in clone.GetComponentsInChildren<Collider>())
         {
             Destroy(coll);
         }
-        */
+        //*/
         foreach (Camera cam in clone.GetComponentsInChildren<Camera>())
         {
             GameObject go = cam.gameObject;

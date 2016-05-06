@@ -10,6 +10,7 @@ class Globals
     public static int RenderDistance = 1;
     public static Transform GameSpaceTrans;
     public static GameSpace GSpace;
+    public static int Score;
 
 
     public static T Instantiate<T>(T obj) where T:UnityEngine.Object
