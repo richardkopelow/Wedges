@@ -11,6 +11,7 @@ public class Ship : MonoBehaviour
     Rigidbody rigid;
 
     Vector3 lastMousePos;
+    float lastFireValue;
 
     void Start()
     {
@@ -25,12 +26,13 @@ public class Ship : MonoBehaviour
     {
         #region NonVRCamControl
 
-        trans.Rotate(Vector3.up, Input.GetAxis("Mouse X"));
-        trans.Rotate(Vector3.left, Input.GetAxis("Mouse Y"));
+        trans.Rotate(Vector3.up, Input.GetAxis("CamX"));
+        trans.Rotate(Vector3.left, Input.GetAxis("CamY"));
         trans.localEulerAngles = new Vector3(trans.localEulerAngles.x, trans.localEulerAngles.y, 0);
         #endregion
-
-        if (Input.GetButtonDown("Fire1"))
+        
+        float fireValue = Input.GetAxis("Fire1");
+        if (fireValue>0.9&&lastFireValue<=0.9)
         {
             GameObject go = Globals.Instantiate<GameObject>(Ammo);
             Transform ammoTrans = go.GetComponent<Transform>();
@@ -40,10 +42,11 @@ public class Ship : MonoBehaviour
             ammoTrans.Rotate(new Vector3(-90, 0, 0), Space.Self);
             ammoRig.velocity = ShipBody.forward * Speed;
         }
+        lastFireValue = fireValue;
     }
     void FixedUpdate()
     {
-        Vector3 force = 3 * (ShipBody.forward * Input.GetAxis("Vertical") + ShipBody.right * Input.GetAxis("Horizontal"));
+        Vector3 force = 3 * (ShipBody.forward * Input.GetAxis("Vertical") + ShipBody.right * Input.GetAxis("Horizontal")+ShipBody.up*Input.GetAxis("Depth"));
         if (rigid.velocity.magnitude > 4)
         {
             if (force.x * rigid.velocity.x > 0)

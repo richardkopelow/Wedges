@@ -7,7 +7,11 @@ using UnityEngine;
 class Globals
 {
     public static float GameRadius = 20;
+#if UNITY_EDITOR
     public static int RenderDistance = 1;
+#else
+    public static int RenderDistance = 2;
+#endif
     public static Transform GameSpaceTrans;
     public static GameSpace GSpace;
     public static int Score;
