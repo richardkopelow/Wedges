@@ -134,7 +134,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0.019607844}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -754,6 +754,60 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!1001 &1967962484
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 410408, guid: 1cc119072ed9eeb4883ef3448496aeec, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 410408, guid: 1cc119072ed9eeb4883ef3448496aeec, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 410408, guid: 1cc119072ed9eeb4883ef3448496aeec, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 410408, guid: 1cc119072ed9eeb4883ef3448496aeec, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 410408, guid: 1cc119072ed9eeb4883ef3448496aeec, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 410408, guid: 1cc119072ed9eeb4883ef3448496aeec, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 410408, guid: 1cc119072ed9eeb4883ef3448496aeec, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 410408, guid: 1cc119072ed9eeb4883ef3448496aeec, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490026, guid: 1cc119072ed9eeb4883ef3448496aeec, type: 2}
+      propertyPath: LockCursor
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11427646, guid: 1cc119072ed9eeb4883ef3448496aeec, type: 2}
+      propertyPath: MainMenu
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11490026, guid: 1cc119072ed9eeb4883ef3448496aeec, type: 2}
+      propertyPath: InMenu
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 1cc119072ed9eeb4883ef3448496aeec, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &2018573098
 GameObject:
   m_ObjectHideFlags: 0

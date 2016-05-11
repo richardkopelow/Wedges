@@ -6,6 +6,8 @@ public class Ship : MonoBehaviour
     public Transform ShipBody;
     public GameObject Ammo;
     public float Speed;
+    public PauseMenu PauseMenu;
+    public bool InMenu;
 
     Transform trans;
     Rigidbody rigid;
@@ -18,31 +20,51 @@ public class Ship : MonoBehaviour
         trans = GetComponent<Transform>();
         rigid = GetComponent<Rigidbody>();
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = true;
+        if (!InMenu)
+        {
+            Globals.LockCursor();
+        }
+        
         lastMousePos = Input.mousePosition;
     }
     void Update()
     {
-        #region NonVRCamControl
-
-        trans.Rotate(Vector3.up, Input.GetAxis("CamX"));
-        trans.Rotate(Vector3.left, Input.GetAxis("CamY"));
-        trans.localEulerAngles = new Vector3(trans.localEulerAngles.x, trans.localEulerAngles.y, 0);
-        #endregion
-        
-        float fireValue = Input.GetAxis("Fire1");
-        if (fireValue>0.9&&lastFireValue<=0.9)
+        if (Globals.Paused)
         {
-            GameObject go = Globals.Instantiate<GameObject>(Ammo);
-            Transform ammoTrans = go.GetComponent<Transform>();
-            Rigidbody ammoRig = go.GetComponent<Rigidbody>();
-            ammoTrans.position = ShipBody.position + ShipBody.forward * 2;
-            ammoTrans.rotation = ShipBody.rotation;
-            ammoTrans.Rotate(new Vector3(-90, 0, 0), Space.Self);
-            ammoRig.velocity = ShipBody.forward * Speed;
+            if (Input.GetKeyUp(KeyCode.Escape))
+            {
+                PauseMenu.Hide();
+                Globals.UnPause();
+            }
         }
-        lastFireValue = fireValue;
+        else
+        {
+            #region NonVRCamControl
+
+            trans.Rotate(Vector3.up, Input.GetAxis("CamX"));
+            trans.Rotate(Vector3.left, Input.GetAxis("CamY"));
+            trans.localEulerAngles = new Vector3(trans.localEulerAngles.x, trans.localEulerAngles.y, 0);
+            #endregion
+
+            float fireValue = Input.GetAxis("Fire1");
+            if (fireValue > 0.9 && lastFireValue <= 0.9)
+            {
+                GameObject go = Globals.Instantiate<GameObject>(Ammo);
+                Transform ammoTrans = go.GetComponent<Transform>();
+                Rigidbody ammoRig = go.GetComponent<Rigidbody>();
+                ammoTrans.position = ShipBody.position + ShipBody.forward * 2;
+                ammoTrans.rotation = ShipBody.rotation;
+                ammoTrans.Rotate(new Vector3(-90, 0, 0), Space.Self);
+                ammoRig.velocity = ShipBody.forward * Speed;
+            }
+            lastFireValue = fireValue;
+
+            if (Input.GetKeyUp(KeyCode.Escape))
+            {
+                Globals.Pause();
+                PauseMenu.Show();
+            }
+        }
     }
     void FixedUpdate()
     {

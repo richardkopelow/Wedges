@@ -7,7 +7,7 @@ using UnityEngine;
 class Globals
 {
     public static float GameRadius = 20;
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_WEBGL
     public static int RenderDistance = 1;
 #else
     public static int RenderDistance = 2;
@@ -15,6 +15,7 @@ class Globals
     public static Transform GameSpaceTrans;
     public static GameSpace GSpace;
     public static int Score;
+    public static bool Paused;
 
 
     public static T Instantiate<T>(T obj) where T:UnityEngine.Object
@@ -23,5 +24,27 @@ class Globals
         Transform tra = o is GameObject ? (o as GameObject).GetComponent<Transform>() : (o as Component).GetComponent<Transform>();
         tra.parent = GameSpaceTrans;
         return o;
+    }
+    public static void LockCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = true;
+    }
+    public static void UnlockCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+    public static void Pause()
+    {
+        Paused = true;
+        Time.timeScale = 0;
+        UnlockCursor();
+    }
+    public static void UnPause()
+    {
+        Paused = false;
+        Time.timeScale = 1;
+        LockCursor();
     }
 }

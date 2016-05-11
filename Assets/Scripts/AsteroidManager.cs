@@ -6,6 +6,7 @@ public class AsteroidManager : MonoBehaviour
     public Rigidbody AsteroidPart;
     public int Size;
     public float Attraction;
+    public bool MainMenu;
 
     Transform trans;
     List<Rigidbody> parts;
@@ -22,6 +23,7 @@ public class AsteroidManager : MonoBehaviour
 
     void Update()
     {
+        #region Forces
         for (int i = 0; i < parts.Count; i++)
         {
             Vector3 force = new Vector3();
@@ -52,6 +54,7 @@ public class AsteroidManager : MonoBehaviour
                 }
             }
         }
+        #endregion
     }
     void makeAsteroid(Vector3 position, int size)
     {
