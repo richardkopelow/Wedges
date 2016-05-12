@@ -38,8 +38,8 @@ class Globals
     public static void Pause()
     {
         Paused = true;
-        Time.timeScale = 0;
         UnlockCursor();
+        Time.timeScale = 0;
     }
     public static void UnPause()
     {

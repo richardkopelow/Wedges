@@ -1,53 +1,47 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 
 public class AsteroidManager : MonoBehaviour
 {
     public Rigidbody AsteroidPart;
-    public int Size;
+    public List<Rigidbody> Parts;
     public float Attraction;
-    public bool MainMenu;
 
     Transform trans;
-    List<Rigidbody> parts;
 
     void Start()
     {
         trans = GetComponent<Transform>();
-        parts = new List<Rigidbody>(Size);
-
-        makeAsteroid(trans.position, Size);
-        makeAsteroid(new Vector3(10,10,0), Size);
-        makeAsteroid(new Vector3(-10, -10, 0), Size);
+        Parts = new List<Rigidbody>();
     }
 
     void Update()
     {
         #region Forces
-        for (int i = 0; i < parts.Count; i++)
+        for (int i = 0; i < Parts.Count; i++)
         {
             Vector3 force = new Vector3();
-            for (int j = 0; j < parts.Count; j++)
+            for (int j = 0; j < Parts.Count; j++)
             {
                 if (i != j)
                 {
-                    Vector3 diff = parts[j].position - parts[i].position;
+                    Vector3 diff = Parts[j].position - Parts[i].position;
                     force+=(Attraction * diff.normalized / Mathf.Abs(Mathf.Pow(diff.magnitude, 4)));
                 }
             }
-            parts[i].AddForce(force);
+            Parts[i].AddForce(force);
             if (force.magnitude < 0.1)
             {
-                if (parts[i].GetComponent<TimeDecay>() == null)
+                if (Parts[i].GetComponent<TimeDecay>() == null)
                 {
-                    TimeDecay td = parts[i].gameObject.AddComponent<TimeDecay>();
+                    TimeDecay td = Parts[i].gameObject.AddComponent<TimeDecay>();
                     td.LiveTime = 2;
                     td.OnDeath += onAsteroidDeath;
                 }
             }
             else
             {
-                TimeDecay td = parts[i].GetComponent<TimeDecay>();
+                TimeDecay td = Parts[i].GetComponent<TimeDecay>();
                 if (td != null)
                 {
                     Destroy(td);
@@ -58,9 +52,8 @@ public class AsteroidManager : MonoBehaviour
     }
     void makeAsteroid(Vector3 position, int size)
     {
-
         Rigidbody body1 = Instantiate<Rigidbody>(AsteroidPart);
-        parts.Add(body1);
+        Parts.Add(body1);
         body1.GetComponent<Transform>().parent = trans;
         body1.GetComponent<Transform>().position = position;
 
@@ -72,15 +65,20 @@ public class AsteroidManager : MonoBehaviour
             if (Physics.Raycast(ray, out info, 8))
             {
                 Rigidbody bodyi = Instantiate<Rigidbody>(AsteroidPart);
-                parts.Add(bodyi);
+                Parts.Add(bodyi);
                 bodyi.GetComponent<Transform>().parent = trans;
                 bodyi.position = info.point - cast.normalized * 0.6f;
             }
         }
     }
+    public void MakeAsteroid()
+    {
+        Vector3 startingPlace = new Vector3(Random.Range(-1 * Globals.GameRadius, Globals.GameRadius), Random.Range(-1 * Globals.GameRadius, Globals.GameRadius), Random.Range(-1 * Globals.GameRadius, Globals.GameRadius));
+        makeAsteroid(startingPlace,Random.Range(2,10));
+    }
     void onAsteroidDeath(TimeDecay sender)
     {
-        parts.Remove(sender.GetComponent<Rigidbody>());
+        Parts.Remove(sender.GetComponent<Rigidbody>());
         Globals.Score++;
     }
 }

@@ -27,8 +27,8 @@ public class PauseMenu : MonoBehaviour
     }
     public void OnExit()
     {
-        SceneManager.LoadScene(0);
         Globals.UnPause();
+        SceneManager.LoadScene(0);
     }
     public void OnContinue()
     {

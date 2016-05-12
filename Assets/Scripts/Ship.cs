@@ -29,15 +29,7 @@ public class Ship : MonoBehaviour
     }
     void Update()
     {
-        if (Globals.Paused)
-        {
-            if (Input.GetKeyUp(KeyCode.Escape))
-            {
-                PauseMenu.Hide();
-                Globals.UnPause();
-            }
-        }
-        else
+        if (!Globals.Paused)
         {
             #region NonVRCamControl
 
