@@ -15,7 +15,7 @@ public class AsteroidManager : MonoBehaviour
         Parts = new List<Rigidbody>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         #region Forces
         for (int i = 0; i < Parts.Count; i++)

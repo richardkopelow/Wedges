@@ -24,9 +24,9 @@ public class EnemyManager : MonoBehaviour
         elapsedTime = 0;
     }
     
-    void Update()
+    void FixedUpdate()
     {
-        elapsedTime += Time.deltaTime;
+        elapsedTime += Time.fixedDeltaTime;
 
         {
             if (asteroids.Parts.Count < 30)

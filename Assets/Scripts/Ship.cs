@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Ship : MonoBehaviour
@@ -24,7 +24,7 @@ public class Ship : MonoBehaviour
         {
             Globals.LockCursor();
         }
-        
+
         lastMousePos = Input.mousePosition;
     }
     void Update()
@@ -47,7 +47,7 @@ public class Ship : MonoBehaviour
                 ammoTrans.position = ShipBody.position + ShipBody.forward * 2;
                 ammoTrans.rotation = ShipBody.rotation;
                 ammoTrans.Rotate(new Vector3(-90, 0, 0), Space.Self);
-                ammoRig.velocity = ShipBody.forward * Speed;
+                ammoRig.velocity = ShipBody.forward * Speed + rigid.velocity;
             }
             lastFireValue = fireValue;
 
@@ -60,8 +60,8 @@ public class Ship : MonoBehaviour
     }
     void FixedUpdate()
     {
-        Vector3 force = 3 * (ShipBody.forward * Input.GetAxis("Vertical") + ShipBody.right * Input.GetAxis("Horizontal")+ShipBody.up*Input.GetAxis("Depth"));
-        if (rigid.velocity.magnitude > 4)
+        Vector3 force = 6 * (ShipBody.forward * Input.GetAxis("Vertical") + ShipBody.right * Input.GetAxis("Horizontal") + ShipBody.up * Input.GetAxis("Depth"));
+        if (rigid.velocity.magnitude > 9)
         {
             if (force.x * rigid.velocity.x > 0)
             {
