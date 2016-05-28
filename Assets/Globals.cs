@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -47,4 +47,5 @@ class Globals
         Time.timeScale = 1;
         LockCursor();
     }
+    
 }

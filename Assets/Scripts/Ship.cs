@@ -6,19 +6,41 @@ public class Ship : MonoBehaviour
     public Transform ShipBody;
     public GameObject Ammo;
     public float Speed;
-    public PauseMenu PauseMenu;
+    public PauseMenu PauseScreen;
+    public DeathMenu DeathScreen;
     public bool InMenu;
+
+    private int _health;
+
+    public int Health
+    {
+        get { return _health; }
+        private set
+        {
+            _health = value;
+            if (_health<=0)
+            {
+                GameObject.Find("HUD").SetActive(false);
+                DeathScreen.Show();
+                //Destroy(gameObject);
+                Globals.UnlockCursor();
+            }
+        }
+    }
 
     Transform trans;
     Rigidbody rigid;
 
     Vector3 lastMousePos;
     float lastFireValue;
+    float hitDelay;
 
     void Start()
     {
         trans = GetComponent<Transform>();
         rigid = GetComponent<Rigidbody>();
+
+        _health = 3;
 
         if (!InMenu)
         {
@@ -54,8 +76,10 @@ public class Ship : MonoBehaviour
             if (Input.GetKeyUp(KeyCode.Escape))
             {
                 Globals.Pause();
-                PauseMenu.Show();
+                PauseScreen.Show();
             }
+
+            hitDelay -= Time.deltaTime;
         }
     }
     void FixedUpdate()
@@ -77,5 +101,14 @@ public class Ship : MonoBehaviour
             }
         }
         rigid.AddForce(force);
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (hitDelay<0)
+        {
+            Health--;
+            hitDelay = 1.5f;
+        }
     }
 }
