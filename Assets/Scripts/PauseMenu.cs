@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
@@ -25,12 +25,12 @@ public class PauseMenu : MonoBehaviour
     {
         Holder.SetActive(false);
     }
-    public void OnExit()
+    public void OnExitClicked()
     {
         Globals.UnPause();
         SceneManager.LoadScene(0);
     }
-    public void OnContinue()
+    public void OnContinueClicked()
     {
         Hide();
         Globals.UnPause();

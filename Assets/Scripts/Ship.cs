@@ -9,7 +9,7 @@ public class Ship : MonoBehaviour
     public PauseMenu PauseScreen;
     public DeathMenu DeathScreen;
     public bool InMenu;
-
+    
     private int _health;
 
     public int Health
@@ -20,7 +20,7 @@ public class Ship : MonoBehaviour
             _health = value;
             if (_health<=0)
             {
-                GameObject.Find("HUD").SetActive(false);
+                hud.SetActive(false);
                 DeathScreen.Show();
                 //Destroy(gameObject);
                 Globals.UnlockCursor();
@@ -31,6 +31,8 @@ public class Ship : MonoBehaviour
     Transform trans;
     Rigidbody rigid;
 
+    GameObject hud;
+
     Vector3 lastMousePos;
     float lastFireValue;
     float hitDelay;
@@ -39,6 +41,8 @@ public class Ship : MonoBehaviour
     {
         trans = GetComponent<Transform>();
         rigid = GetComponent<Rigidbody>();
+
+        hud = GameObject.Find("HUD");
 
         _health = 3;
 

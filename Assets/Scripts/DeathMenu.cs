@@ -42,14 +42,14 @@ public class DeathMenu : MonoBehaviour
         Holder.SetActive(true);
     }
 
-    public void OnPlayAgain()
+    public void OnPlayAgainClicked()
     {
         HighScores.Instance.SubmitScore(NameSpace.text, Globals.Score);
         Globals.Score = 0;
         SceneManager.LoadScene("PlayScene");
     }
 
-    public void OnExit()
+    public void OnExitClicked()
     {
         HighScores.Instance.SubmitScore(NameSpace.text, Globals.Score);
         SceneManager.LoadScene("MainMenu");

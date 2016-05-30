@@ -29,12 +29,7 @@ public class HighScores
 
     private HighScores()
     {
-        Scores = new List<PlayerScore>(10);
-        for (int i = 0; i < 10; i++)
-        {
-            Scores.Add(new PlayerScore(PlayerPrefs.GetString(i.ToString(), "Foo Bar"), PlayerPrefs.GetInt(i.ToString(), 0)));
-        }
-        Scores = Scores.OrderBy(s => s.Score).ToList<PlayerScore>();
+        load();
     }
 
     public void SubmitScore(string name, int score)
@@ -45,13 +40,32 @@ public class HighScores
         save();
     }
 
+    public void Clear()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            PlayerPrefs.SetString(i.ToString(), "Foo Bar");
+            PlayerPrefs.SetInt(i.ToString(), 0);
+        }
+        load();
+    }
+
     void save()
     {
         for (int i = 0; i < 10; i++)
         {
-            PlayerPrefs.SetString(i.ToString(), Scores[i].Name);
+            PlayerPrefs.SetString(i.ToString()+"name", Scores[i].Name);
             PlayerPrefs.SetInt(i.ToString(), Scores[i].Score);
         }
+    }
+    void load()
+    {
+        Scores = new List<PlayerScore>(10);
+        for (int i = 0; i < 10; i++)
+        {
+            Scores.Add(new PlayerScore(PlayerPrefs.GetString(i.ToString()+"name", "Foo Bar"), PlayerPrefs.GetInt(i.ToString(), 0)));
+        }
+        Scores = Scores.OrderBy(s => s.Score).Reverse<PlayerScore>().ToList<PlayerScore>();
     }
 }
 
