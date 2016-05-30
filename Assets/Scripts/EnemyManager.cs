@@ -4,6 +4,7 @@ using System.Collections;
 public class EnemyManager : MonoBehaviour
 {
     public Rigidbody AsteroidPart;
+    public GameObject UFO;
 
     Transform trans;
     AsteroidManager asteroids;
@@ -21,6 +22,7 @@ public class EnemyManager : MonoBehaviour
         asteroids = asteroidsGO.AddComponent<AsteroidManager>();
         asteroids.Attraction = 15;
         asteroids.AsteroidPart = AsteroidPart;
+
         elapsedTime = 0;
     }
     

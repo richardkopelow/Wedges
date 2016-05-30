@@ -327,6 +327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AsteroidPart: {fileID: 5469452, guid: a1ba87cf13a17354e81eec6603a349df, type: 2}
+  UFO: {fileID: 199790, guid: 0ae7869a4ebb9de44b1d0117e176e406, type: 2}
 --- !u!114 &11420888
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -364,8 +365,9 @@ MonoBehaviour:
   ShipBody: {fileID: 406728}
   Ammo: {fileID: 127666, guid: 4726a289109c16c4bb36ca5362c19582, type: 2}
   Speed: 30
-  PauseMenu: {fileID: 0}
-  InMenu: 0
+  PauseScreen: {fileID: 0}
+  DeathScreen: {fileID: 0}
+  InMenu: 1
 --- !u!124 &12480626
 Behaviour:
   m_ObjectHideFlags: 1
