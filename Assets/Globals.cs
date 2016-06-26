@@ -28,7 +28,7 @@ class Globals
     public static void LockCursor()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        //Cursor.visible = true;
+        Cursor.visible = false;
     }
     public static void UnlockCursor()
     {

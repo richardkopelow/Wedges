@@ -8,37 +8,37 @@ public class EnemyManager : MonoBehaviour
 
     Transform trans;
     AsteroidManager asteroids;
-
-    float elapsedTime;
+    
     float lastAsteroidSpawn;
+    float ufoNextSpawn;
 
-    void Start()
+    void Awake()
     {
         trans = GetComponent<Transform>();
-
         GameObject asteroidsGO = new GameObject();
         Transform asteroidsTrans = asteroidsGO.GetComponent<Transform>();
         asteroidsTrans.parent = trans;
         asteroids = asteroidsGO.AddComponent<AsteroidManager>();
         asteroids.Attraction = 15;
         asteroids.AsteroidPart = AsteroidPart;
-
-        elapsedTime = 0;
     }
     
     void FixedUpdate()
     {
-        elapsedTime += Time.fixedDeltaTime;
-
         {
             if (asteroids.Parts.Count < 30)
             {
-                if ((elapsedTime - lastAsteroidSpawn) * elapsedTime > 15)
+                if ((Time.fixedTime - lastAsteroidSpawn) * Time.fixedTime > 15)
                 {
                     asteroids.MakeAsteroid();
-                    lastAsteroidSpawn = elapsedTime;
+                    lastAsteroidSpawn = Time.fixedTime;
                 }
             }
+        }
+        if (Time.fixedTime>70&&Time.fixedTime>ufoNextSpawn)
+        {
+            Instantiate(UFO);
+            ufoNextSpawn = Time.fixedTime + Random.Range(6, 15);
         }
     }
 }

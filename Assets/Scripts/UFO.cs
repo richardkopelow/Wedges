@@ -1,15 +1,26 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
-public class UFO : MonoBehaviour {
+public class UFO : MonoBehaviour
+{
+    public GameObject Wedge;
+    Rigidbody rigid;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    void Start()
+    {
+        rigid = GetComponent<Rigidbody>();
+        rigid.position = Random.insideUnitSphere * Globals.GameRadius;
+        rigid.velocity = Random.onUnitSphere/5;
+    }
+
+    void Update()
+    {
+
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        Destroy(gameObject);
+        Globals.Score += 15;
+    }
 }
