@@ -10,7 +10,7 @@ public class UFO : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody>();
         rigid.position = Random.insideUnitSphere * Globals.GameRadius;
-        rigid.velocity = Random.onUnitSphere/5;
+        rigid.velocity = Random.insideUnitSphere * 3;
     }
 
     void Update()
