@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public class GameSpace : MonoBehaviour
 {
     Transform trans;
-
+    
     List<Transform> clones;
     // Use this for initialization
     void Start()
@@ -20,7 +21,7 @@ public class GameSpace : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateClones();
+            UpdateClones();
     }
     public void UpdateClones()
     {

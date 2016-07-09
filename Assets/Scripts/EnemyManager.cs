@@ -37,7 +37,8 @@ public class EnemyManager : MonoBehaviour
         }
         if (Time.fixedTime>70&&Time.fixedTime>ufoNextSpawn)
         {
-            Instantiate(UFO);
+            GameObject ufoGo=Instantiate(UFO);
+            ufoGo.GetComponent<Transform>().parent = trans;
             ufoNextSpawn = Time.fixedTime + Random.Range(6, 15);
         }
     }

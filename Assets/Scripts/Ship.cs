@@ -40,6 +40,7 @@ public class Ship : MonoBehaviour
     void Start()
     {
         trans = GetComponent<Transform>();
+        Globals.Player = trans;
         rigid = GetComponent<Rigidbody>();
 
         hud = GameObject.Find("HUD");

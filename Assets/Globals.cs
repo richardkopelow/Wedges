@@ -10,10 +10,11 @@ class Globals
 #if UNITY_EDITOR || UNITY_WEBGL
     public static int RenderDistance = 1;
 #else
-    public static int RenderDistance = 2;
+    public static int RenderDistance = 1;
 #endif
     public static Transform GameSpaceTrans;
     public static GameSpace GSpace;
+    public static Transform Player;
     public static int Score;
     public static bool Paused;
 
