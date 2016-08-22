@@ -78,7 +78,7 @@ public class Ship : MonoBehaviour
             }
             lastFireValue = fireValue;
 
-            if (Input.GetKeyUp(KeyCode.Escape))
+            if (Input.GetKeyUp(KeyCode.Escape)||Input.GetButtonDown("Start"))
             {
                 Globals.Pause();
                 PauseScreen.Show();

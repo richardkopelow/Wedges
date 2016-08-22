@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Text;
+using UnityEngine.EventSystems;
 
 public class DeathMenu : MonoBehaviour
 {
@@ -40,6 +41,7 @@ public class DeathMenu : MonoBehaviour
         }
 
         Holder.SetActive(true);
+        FindObjectOfType<EventSystem>().SetSelectedGameObject(GameObject.Find("PlayAgainButton"));
     }
 
     public void OnPlayAgainClicked()

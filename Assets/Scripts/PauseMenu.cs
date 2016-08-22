@@ -1,24 +1,16 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class PauseMenu : MonoBehaviour
 {
     public GameObject Holder;
 
-    void Start()
-    {
-
-    }
-    
-    void Update()
-    {
-
-    }
-
     public void Show()
     {
         Holder.SetActive(true);
+        FindObjectOfType<EventSystem>().SetSelectedGameObject(GameObject.Find("ContinueButton"));
     }
 
     public void Hide()

@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Text;
+using UnityEngine.EventSystems;
 
 public class HighScoresMenu : MonoBehaviour
 {
@@ -10,6 +11,11 @@ public class HighScoresMenu : MonoBehaviour
     void Start()
     {
         setText();
+    }
+
+    void OnEnable()
+    {
+        FindObjectOfType<EventSystem>().SetSelectedGameObject(GameObject.Find("BackButton"));
     }
 
     public void OnClearClicked()
